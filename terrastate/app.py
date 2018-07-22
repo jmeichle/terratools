@@ -43,156 +43,6 @@ CREATE TABLE IF NOT EXISTS statefiles (
 
 db_conn.commit()
 
-locked = False
-
-
-# init:
-# load({'serial': 0,
-#     'version': 1,
-#     'modules': [
-#         {'path': ['root'],
-#         'resources': {},
-#         'outputs': {}}]}
-# )
-# 127.0.0.1 - - [22/Jul/2018 15:54:30] "GET /thinking_face HTTP/1.1" 200 -
-
-# plan:
-# save({
-#     u'Info': u'',
-#     u'Version': u'0.11.7',
-#     u'Created': u'2018-07-22T19:54:41.657104783Z',
-#     u'Who': u'jmeichle@jmeichle-Precision-5520',
-#     'modules': [
-#         {'path': ['root'],
-#         'resources': {},
-#         'outputs': {}}],
-#     u'ID': u'a8383823-543f-d639-ab79-471f1bd3eacb',
-#     'version': 1,
-#     u'Path': u'',
-#     'serial': 0,
-#     u'Operation': u'OperationTypePlan'
-# })
-# Running query: INSERT INTO statefiles (created_time, statefile) VALUES (1, '{\"Info\": \"\", \"Version\": \"0.11.7\", \"Created\": \"2018-07-22T19:54:41.657104783Z\", \"Who\": \"jmeichle@jmeichle-Precision-5520\", \"modules\": [{\"path\": [\"root\"], \"resources\": {}, \"outputs\": {}}], \"ID\": \"a8383823-543f-d639-ab79-471f1bd3eacb\", \"version\": 1, \"Path\": \"\", \"serial\": 0, \"Operation\": \"OperationTypePlan\"}')
-# 127.0.0.1 - - [22/Jul/2018 15:54:41] "POST /lock HTTP/1.1" 200 -
-# load({
-#     'serial': 0,
-#     'version': 1,
-#     'modules': [
-#         {'path': ['root'],
-#         'resources': {},
-#         'outputs': {}}
-#     ]
-# })
-# 127.0.0.1 - - [22/Jul/2018 15:54:41] "GET /thinking_face HTTP/1.1" 200 -
-# destroy({
-#     u'Info': u'',
-#     u'Version': u'0.11.7',
-#     u'Created': u'2018-07-22T19:54:41.657104783Z',
-#     u'Who': u'jmeichle@jmeichle-Precision-5520',
-#     'modules': [
-#         {'path': ['root'],
-#         'resources': {},
-#         'outputs': {}}],
-#     u'ID': u'a8383823-543f-d639-ab79-471f1bd3eacb',
-#     'version': 1,
-#     u'Path': u'',
-#     'serial': 0,
-#     u'Operation': u'OperationTypePlan'
-# })
-# Running query: DELETE FROM statefiles WHERE created_time=1
-# 127.0.0.1 - - [22/Jul/2018 15:54:41] "DELETE /lock HTTP/1.1" 200 -
-
-
-# apply:
-# save({u'Info': u'',
-#       u'Version': u'0.11.7',
-#       u'Created': u'2018-07-22T19:54:51.546704608Z',
-#       u'Who': u'jmeichle@jmeichle-Precision-5520',
-#       'modules': [
-#         {'path': ['root'],
-#           'resources': {},
-#           'outputs': {}}],
-#       u'ID': u'e5e55302-23fb-f767-1b27-8260dc7c4298',
-#       'version': 1,
-#       u'Path': u'',
-#       'serial': 0,
-#       u'Operation': u'OperationTypeApply'
-# })
-# Running query: INSERT INTO statefiles (created_time,
-#     statefile) VALUES (1, '{\"Info\": \"\", \"Version\": \"0.11.7\", \"Created\": \"2018-07-22T19:54:51.546704608Z\", \"Who\": \"jmeichle@jmeichle-Precision-5520\", \"modules\": [{\"path\": [\"root\"], \"resources\": {}, \"outputs\": {}}], \"ID\": \"e5e55302-23fb-f767-1b27-8260dc7c4298\", \"version\": 1, \"Path\": \"\", \"serial\": 0, \"Operation\": \"OperationTypeApply\"}')
-# 127.0.0.1 - - [22/Jul/2018 15:54:51] "POST /lock HTTP/1.1" 200 -
-# load({'serial': 0, 'version': 1, 'modules': [{'path': ['root'], 'resources': {}, 'outputs': {}}]})
-# 127.0.0.1 - - [22/Jul/2018 15:54:51] "GET /thinking_face HTTP/1.1" 200 -
-   
-
-#    # mysql> select * from statefiles\G
-#    # *************************** 1. row ***************************
-#    #           id: 38
-#    # created_time: 1
-#    #    statefile: {
-#    #                  "Info": "",
-#    #                  "Version": "0.11.7",
-#    #                  "Created": "2018-07-22T19:54:51.546704608Z",
-#    #                  "Who": "jmeichle@jmeichle-Precision-5520",
-#    #                  "modules": [{"path": ["root"],
-#    #                  "resources": {},
-#    #                  "outputs": {}}],
-#    #                  "ID": "e5e55302-23fb-f767-1b27-8260dc7c4298",
-#    #                  "version": 1,
-#    #                  "Path": "",
-#    #                  "serial": 0,
-#    #                  "Operation": "OperationTypeApply"
-#    #                }
-#    # 1 row in set (0.00 sec)
-
-
-
-# yes:
-# save({
-#     u'lineage': u'23022e6d-b7f5-b6c8-d523-6bb3219de896',
-#     u'terraform_version': u'0.11.7',
-#     'modules': [
-#         {u'path': [u'root'],
-#         u'depends_on': [],
-#         u'resources': {u'local_file.hmm': {u'depends_on': [],
-#         u'provider': u'provider.local',
-#         u'type': u'local_file',
-#         u'primary': {
-#          u'attributes': {
-#           u'content':
-#            u'hmm!',
-#            u'id': u'0af43cd25f0a79e365b4637178af50e748a9b406',
-#            u'filename': u'/home/jmeichle/projects/2018-07-22/test_tf_http_state_data_provider/hmm.bar'},
-#            u'meta': {},
-#            u'tainted': False,
-#            u'id': u'0af43cd25f0a79e365b4637178af50e748a9b406'},
-#            u'deposed': []
-#           }
-#          },
-#          u'outputs': {}
-#     }],
-#     'version': 3, 'serial': 2
-# })
-# Running query: INSERT INTO statefiles (created_time, statefile) VALUES (1, '{\"lineage\": \"23022e6d-b7f5-b6c8-d523-6bb3219de896\", \"terraform_version\": \"0.11.7\", \"modules\": [{\"path\": [\"root\"], \"depends_on\": [], \"resources\": {\"local_file.hmm\": {\"depends_on\": [], \"provider\": \"provider.local\", \"type\": \"local_file\", \"primary\": {\"attributes\": {\"content\": \"hmm!\", \"id\": \"0af43cd25f0a79e365b4637178af50e748a9b406\", \"filename\": \"/home/jmeichle/projects/2018-07-22/test_tf_http_state_data_provider/hmm.bar\"}, \"meta\": {}, \"tainted\": false, \"id\": \"0af43cd25f0a79e365b4637178af50e748a9b406\"}, \"deposed\": []}}, \"outputs\": {}}], \"version\": 3, \"serial\": 2}')
-# 127.0.0.1 - - [22/Jul/2018 15:55:00] "POST /thinking_face?ID=e5e55302-23fb-f767-1b27-8260dc7c4298 HTTP/1.1" 200 -
-# destroy({
-#     u'Info': u'',
-#     u'Version': u'0.11.7',
-#     u'Created': u'2018-07-22T19:54:51.546704608Z',
-#     u'Who': u'jmeichle@jmeichle-Precision-5520',
-#     'modules': [
-#         {'path': ['root'],
-#         'resources': {},
-#         'outputs': {}}
-#     ],
-#     u'ID': u'e5e55302-23fb-f767-1b27-8260dc7c4298',
-#     'version': 1,
-#     u'Path': u'',
-#     'serial': 0,
-#     u'Operation': u'OperationTypeApply'})
-# Running query: DELETE FROM statefiles WHERE created_time=1
-# 127.0.0.1 - - [22/Jul/2018 15:55:00] "DELETE /lock HTTP/1.1" 200 -
-
 class MysqlBasedTerraformState(dict):
     """Representation of a Terraform statefile"""
 
@@ -256,72 +106,72 @@ class MysqlBasedTerraformState(dict):
         print('  OPERATION ID: {}'.format(self.get('Operation', '')))
 
 
-# class FileBasedTerraformState(dict):
-#     """Representation of a Terraform statefile"""
+class FileBasedTerraformState(dict):
+    """Representation of a Terraform statefile"""
 
-#     def __init__(self, config):
-#         dict.__init__(self)
-#         self.env = None
-#         self.config = config
-#         self.statepath = self._mkstatedir(config['statepath'])
-#         self.update({
-#             'version': 1,
-#             'serial': 0,
-#             'modules': [{
-#                 'path': ['root'],
-#                 'outputs': {},
-#                 'resources': {}
-#             }]
-#         })
+    def __init__(self, config):
+        dict.__init__(self)
+        self.env = None
+        self.config = config
+        self.statepath = self._mkstatedir(config['statepath'])
+        self.update({
+            'version': 1,
+            'serial': 0,
+            'modules': [{
+                'path': ['root'],
+                'outputs': {},
+                'resources': {}
+            }]
+        })
 
-#     def _mkstatedir(self, statepath):
-#         try:
-#             os.makedirs(statepath, mode=0o744)
-#         except OSError as err:
-#             if err.errno == errno.EEXIST and os.path.isdir(statepath):
-#                 pass
-#             else:
-#                 raise
-#         return statepath
+    def _mkstatedir(self, statepath):
+        try:
+            os.makedirs(statepath, mode=0o744)
+        except OSError as err:
+            if err.errno == errno.EEXIST and os.path.isdir(statepath):
+                pass
+            else:
+                raise
+        return statepath
 
-#     def _getstatefilename(self, env):
-#         return os.path.join(self.statepath, '%s-tfstate.json' % (env, ))
+    def _getstatefilename(self, env):
+        return os.path.join(self.statepath, '%s-tfstate.json' % (env, ))
 
-#     def _getlockfilename(self, env):
-#         return os.path.join(self.statepath, '%s-tfstate.lock' % (env, ))
+    def _getlockfilename(self, env):
+        return os.path.join(self.statepath, '%s-tfstate.lock' % (env, ))
 
-#     def load(self):
-#         filename = self._getstatefilename(self.env)
-#         if not os.path.isfile(filename):
-#             print "{} Not Found".format(filename)
-#             return
-#         with open(filename) as fh:
-#             print "Reading {}".format(filename)
-#             self.update(json.load(fh))
+    def load(self):
+        filename = self._getstatefilename(self.env)
+        if not os.path.isfile(filename):
+            print "{} Not Found".format(filename)
+            return
+        with open(filename) as fh:
+            print "Reading {}".format(filename)
+            self.update(json.load(fh))
 
-#     def save(self):
-#         filename = self._getstatefilename(self.env)
-#         print "Writing to {}".format(filename)
-#         with open(filename, 'w+') as fh:
-#             json.dump(self, fh, indent=2)
+    def save(self):
+        filename = self._getstatefilename(self.env)
+        print "Writing to {}".format(filename)
+        with open(filename, 'w+') as fh:
+            json.dump(self, fh, indent=2)
 
-#     def destroy(self):
-#         filename = self._getstatefilename(self.env)
-#         print "Deleting {}".format(filename)
-#         if os.path.isfile(filename):
-#             os.unlink(filename)
+    def destroy(self):
+        filename = self._getstatefilename(self.env)
+        print "Deleting {}".format(filename)
+        if os.path.isfile(filename):
+            os.unlink(filename)
 
-#     def lock(self):
-#         if os.path.isfile(self._getlockfilename(self.env)):
-#             raise Exception('Already locked')
-#         with open(self._getlockfilename(self.env), 'w') as fh:
-#             fh.write('locked')
+    def lock(self):
+        if os.path.isfile(self._getlockfilename(self.env)):
+            raise Exception('Already locked')
+        with open(self._getlockfilename(self.env), 'w') as fh:
+            fh.write('locked')
 
-#     def unlock(self):
-#         if os.path.isfile(self._getlockfilename(self.env)):
-#             os.unlink(self._getlockfilename(self.env))
-#         else:
-#             raise Exception('Not locked')
+    def unlock(self):
+        if os.path.isfile(self._getlockfilename(self.env)):
+            os.unlink(self._getlockfilename(self.env))
+        else:
+            raise Exception('Not locked')
 
 
 class Config(dict):
