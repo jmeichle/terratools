@@ -55,6 +55,7 @@ class TerraformState(dict):
             return
         with open(self._getstatefilename(self.env)) as fh:
             self.update(json.load(fh))
+            return True
 
     def save(self):
         with open(self._getstatefilename(self.env), 'w+') as fh:
@@ -97,8 +98,11 @@ class StateView(MethodView):
 
     def get(self, env):
         self.state.env = env
-        self.state.load()
-        return jsonify(self.state)
+        found = self.state.load()
+        if not found:
+            return jsonify({}), 404
+        else:
+            return jsonify(self.state)
 
     def post(self, env):
         self.state.env = env
